@@ -1,4 +1,4 @@
-# README section you can paste
+# README section
 
 ## Architecture
 This solution uses Onion architecture to separate domain, application, and infrastructure concerns.
