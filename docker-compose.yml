@@ -1,0 +1,33 @@
+﻿version: "3.9"
+
+services:
+  journaway.webapi:
+    image: journaway.webapi
+    container_name: journaway.webapi
+    build:
+      context: .
+      dockerfile: Journaway.WebApi/Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__OccupancyDb: Host=postgres;Port=5432;Database=OccupancyDb;Username=postgres;Password=redmond
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+
+  postgres:
+    container_name: postgres_demo
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: redmond
+      POSTGRES_DB: OccupancyDb
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+volumes:
+  postgres-db:
